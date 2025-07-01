@@ -5,23 +5,55 @@ using Microsoft.AspNetCore.Mvc;
 namespace Mango.Services.CouponAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CouponAPIController(AppDbContext _db) : ControllerBase
     {
         [HttpGet]
-        public object GetList()
+        public ResponseDto GetList()
         {
-            List<Coupon> repsonse = _db.Coupons.ToList();
+            try
+            {
+                List<Coupon> res = _db.Coupons.ToList();
 
-            return repsonse;
+                return new ResponseDto()
+                {
+                    Result = res,
+                    IsSuccess = true,
+                    Message = "Success"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDto()
+                {
+                    Message = ex.Message,
+                    Result = null
+                };
+            }
         }
 
         [HttpGet("{id:int}")]
-        public object GetById(int id)
+        public ResponseDto GetById(int id)
         {
-            Coupon repsonse = _db.Coupons.First(c => c.CouponId == id);
+            try
+            {
+                Coupon res = _db.Coupons.First(c => c.CouponId == id);
 
-            return repsonse;
+                return new ResponseDto()
+                {
+                    Result = res,
+                    IsSuccess = true,
+                    Message = "Success"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDto()
+                {
+                    Message = ex.Message,
+                    Result = null
+                };
+            }
         }
     }
 }
