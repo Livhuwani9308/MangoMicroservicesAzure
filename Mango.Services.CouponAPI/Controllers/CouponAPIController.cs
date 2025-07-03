@@ -10,7 +10,7 @@ namespace Mango.Services.CouponAPI.Controllers
     [Route("api/[controller]")]
     public class CouponAPIController(AppDbContext _db, IMapper _mapper) : ControllerBase
     {
-        [HttpGet("List")]
+        [HttpGet("/api/coupon/List")]
         public ResponseDto GetList()
         {
             try
@@ -34,7 +34,7 @@ namespace Mango.Services.CouponAPI.Controllers
             }
         }
 
-        [HttpGet("GetById{id:int}")]
+        [HttpGet("/api/coupon/getbyid/{id:int}")]
         public ResponseDto GetById(int id)
         {
             try
@@ -58,7 +58,7 @@ namespace Mango.Services.CouponAPI.Controllers
             }
         }
 
-        [HttpGet("GetByCode{code}")]
+        [HttpGet("/api/coupon/getbycode/{code}")]
         public ResponseDto GetById(string code)
         {
             try
@@ -82,7 +82,7 @@ namespace Mango.Services.CouponAPI.Controllers
             }
         }
 
-        [HttpPost("Create")]
+        [HttpPost("/api/coupon/create")]
         public ResponseDto Create([FromBody] CouponDto couponDto)
         {
             try
@@ -109,7 +109,7 @@ namespace Mango.Services.CouponAPI.Controllers
             }
         }
 
-        [HttpPut("Update")]
+        [HttpPut("/api/coupon/update")]
         public ResponseDto Update([FromBody] CouponDto couponDto)
         {
             try
@@ -136,7 +136,7 @@ namespace Mango.Services.CouponAPI.Controllers
             }
         }
 
-        [HttpDelete("Delete")]
+        [HttpDelete("/api/coupon/delete")]
         public ResponseDto Delete(int id)
         {
             try
