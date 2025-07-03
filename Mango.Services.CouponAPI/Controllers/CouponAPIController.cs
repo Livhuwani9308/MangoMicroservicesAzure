@@ -10,7 +10,7 @@ namespace Mango.Services.CouponAPI.Controllers
     [Route("api/[controller]")]
     public class CouponAPIController(AppDbContext _db, IMapper _mapper) : ControllerBase
     {
-        [HttpGet("/api/coupon/List")]
+        [HttpGet("/api/coupon/list")]
         public ResponseDto GetList()
         {
             try
