@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Mango.Web.Controllers
 {
-    [Route("Auth")]
+    [Route("api/[controller]")]
+    [ApiController]
     public class AuthController(IAuthService _authService) : Controller
     {
         [HttpGet("login")]
@@ -17,10 +18,9 @@ namespace Mango.Web.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginRequestDto obj)
+        public IActionResult Login(RegistrationRequestDto obj)
         {
             LoginRequestDto loginRequestDto = new();
-            ResponseDto result = await _authService.LoginAsync(obj);
             return View(loginRequestDto);
         }
 
@@ -39,7 +39,7 @@ namespace Mango.Web.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegistrationRequestDto obj)
         {
-            ResponseDto result = await _authService.RegisterAsync(obj);
+            ResponseDto result = await _authService.AssignRoleAsync(obj);
             ResponseDto assignRole;
 
             if (result != null && result.IsSuccess)
@@ -65,7 +65,6 @@ namespace Mango.Web.Controllers
             ViewBag.RoleList = roleList;
             return View(obj);
         }
-
 
         public IActionResult Logout()
         {

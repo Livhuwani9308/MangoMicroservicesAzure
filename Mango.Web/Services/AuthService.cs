@@ -12,6 +12,7 @@ namespace Mango.Web.Services
             {
                 ApiType = SD.ApiType.POST,
                 Url = $"{SD.AuthAPIBase}/api/auth/AssignRole",
+                //Url = $"{SD.CouponAPIBase}/api/auth/AssignRole",
                 Data = registrationRequestDto
             });
         }
@@ -21,7 +22,7 @@ namespace Mango.Web.Services
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = SD.ApiType.POST,
-                Url = $"{SD.AuthAPIBase}/api/auth/login",
+                Url = $"{SD.CouponAPIBase}/api/auth/login",
                 Data = loginRequestDto
             });
         }
@@ -31,7 +32,7 @@ namespace Mango.Web.Services
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = SD.ApiType.POST,
-                Url = $"{SD.AuthAPIBase}/api/auth/register",
+                Url = $"{SD.CouponAPIBase}/api/auth/register",
                 Data = registrationRequestDto
             });
         }
