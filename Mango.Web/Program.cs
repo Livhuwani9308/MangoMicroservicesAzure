@@ -4,6 +4,8 @@ using Mango.Web.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpContextAccessor();
@@ -12,11 +14,17 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddHttpClient<ICouponService, CouponService>();
 
-SD.CouponAPIBase = builder.Configuration["ServiceUrls:CouponAPI"] ?? "";
+builder.Services.AddHttpClient<IAuthService, AuthService>();
+
+SD.CouponAPIBase = builder.Configuration["ServiceUrls:CouponAPI"];
+
+SD.AuthAPIBase = builder.Configuration["ServiceUrls:AuthAPI"];
 
 builder.Services.AddScoped<IBaseService, BaseService>();
 
 builder.Services.AddScoped<ICouponService, CouponService>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
