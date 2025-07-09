@@ -21,6 +21,7 @@ namespace Mango.Web.Controllers
         {
             LoginRequestDto loginRequestDto = new();
             ResponseDto result = await _authService.LoginAsync(obj);
+            TempData["success"] = "Login Successful";
             return View(loginRequestDto);
         }
 
