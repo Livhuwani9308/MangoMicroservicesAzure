@@ -19,7 +19,7 @@ namespace Mango.Web.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login(RegistrationRequestDto obj)
+        public async Task<IActionResult> Login(LoginRequestDto obj)
         {
             ResponseDto responseDto = await _authService.LoginAsync(obj);
 
