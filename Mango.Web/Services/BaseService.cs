@@ -7,9 +7,9 @@ using static Mango.Web.Utilities.SD;
 
 namespace Mango.Web.Services
 {
-    public class BaseService(IHttpClientFactory _httpClientFactory) : IBaseService
+    public class BaseService(IHttpClientFactory _httpClientFactory, ITokenProvider _tokenProvider) : IBaseService
     {
-        public async Task<ResponseDto?> SendAsync(RequestDto requestDto)
+        public async Task<ResponseDto?> SendAsync(RequestDto requestDto, bool withBearer = true)
         {
             try
             {
@@ -17,6 +17,11 @@ namespace Mango.Web.Services
                 HttpRequestMessage message = new();
                 message.Headers.Add("Accept", "application/json");
                 // token
+                if (withBearer)
+                {
+                    var token = _tokenProvider.GetToken();
+                    message.Headers.Add("Authorization", $"bearer {token}");
+                }
 
                 message.RequestUri = new Uri(requestDto.Url);
                 if (requestDto.Data != null)
