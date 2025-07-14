@@ -2,6 +2,7 @@ using AutoMapper;
 using Mango.Services.CouponAPI.Data;
 using Mango.Services.CouponAPI.Models;
 using Mango.Services.CouponAPI.Models.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ResponseDto = Mango.Services.CouponAPI.Models.Dto.ResponseDto;
 
@@ -9,6 +10,7 @@ namespace Mango.Services.CouponAPI.Controllers
 {
     [ApiController]
     [Route("api/coupon")]
+    [Authorize]
     public class CouponAPIController(AppDbContext _db, IMapper _mapper) : ControllerBase
     {
         [HttpGet("list")]
