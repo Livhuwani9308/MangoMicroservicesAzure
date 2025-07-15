@@ -9,7 +9,7 @@ namespace Mango.Services.ProductAPI.Controllers
 {
     [ApiController]
     [Route("api/product")]
-    [Authorize]
+    //[Authorize]
     public class ProductAPIController(AppDbContext _db, IMapper _mapper) : ControllerBase
     {
         [HttpGet("list")]
