@@ -10,7 +10,12 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
 {
     [ApiController]
     [Route("api/cart")]
-    public class CartAPIController(AppDbContext _db, IMapper _mapper, IProductService _productService) : ControllerBase
+    public class CartAPIController(
+        AppDbContext _db,
+        IMapper _mapper,
+        IProductService _productService,
+        ICouponService _couponService
+        ) : ControllerBase
     {
         private readonly ResponseDto _response = new();
 
@@ -32,6 +37,16 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
                 {
                     item.Product = productDtos.FirstOrDefault(u => u.ProductId == item.ProductId);
                     cart.CartHeader.CartTotal += (item.Count * item.Product.Price);
+                }
+                // apply coupon if any
+                if (!string.IsNullOrEmpty(cart.CartHeader.CouponCode))
+                {
+                    CouponDto coupon = await _couponService.GetCoupon(cart.CartHeader.CouponCode);
+                    if (coupon != null && cart.CartHeader.CartTotal > coupon.MinAmount)
+                    {
+                        cart.CartHeader.CartTotal -= coupon.MinAmount;
+                        cart.CartHeader.Discount = coupon.DiscountAmount;
+                    }
                 }
                 _response.Result = cart;
             }
