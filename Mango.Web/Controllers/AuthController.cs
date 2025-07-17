@@ -34,6 +34,8 @@ namespace Mango.Web.Controllers
 
                 _tokenProvider.SetToken(loginResponseDto.Token);
 
+                TempData["success"] = "Login successful.";
+
                 return RedirectToAction("Index", "Home");
             }
             else
