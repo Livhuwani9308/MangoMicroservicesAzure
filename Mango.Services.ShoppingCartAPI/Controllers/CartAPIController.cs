@@ -48,6 +48,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
                         cart.CartHeader.Discount = coupon.DiscountAmount;
                     }
                 }
+                _response.IsSuccess = true;
                 _response.Result = cart;
             }
             catch (Exception ex)
