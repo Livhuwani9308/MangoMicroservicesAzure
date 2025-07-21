@@ -10,7 +10,7 @@ namespace Mango.Services.CouponAPI.Controllers
 {
     [ApiController]
     [Route("api/coupon")]
-    //[Authorize]
+    [Authorize]
     public class CouponAPIController(AppDbContext _db, IMapper _mapper) : ControllerBase
     {
         [HttpGet("list")]
